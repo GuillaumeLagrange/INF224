@@ -15,6 +15,7 @@ public:
     void setChapters(int * chap, int cNb);
     int getChapNumber();
     void printMedia(std::ostream&) ;
+    ~Film();
 
 private :
     int * chapters;

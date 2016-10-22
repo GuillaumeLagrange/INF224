@@ -27,3 +27,8 @@
 *.exe
 *.out
 *.app
+
+*.pdf
+depend-myprog
+myprog
+*.swp

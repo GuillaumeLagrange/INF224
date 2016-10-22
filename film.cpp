@@ -11,6 +11,11 @@ Film::Film(std::string mName, std::string p, int d, int *chap, int cNb) : Video(
     chapNb = cNb;
 }
 
+Film::~Film()
+{
+    delete chapters;
+}
+
 void Film::setChapters(int *chap, int cNb)
 {
     for (int i = 0; i < cNb; i++)
@@ -52,7 +57,7 @@ void Film::printMedia(std::ostream &str)
     }
     else
     {
-        str << "No chapter specified \n";
+        str << "No chapters specified \n";
     }
 }
 

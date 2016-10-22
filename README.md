@@ -16,4 +16,13 @@ consiste à pouvoir considérer un objet en tant qu'une instance de la classe
 dans laquelle il est déclaré, ainsi qu'en tant qu'instance de toute classe
 dont la classe dans laquelle il est déclaré hérite. C'est le travail du
 compilateur de déterminer comment considérer l'objet.
-                                                       
+
+6ème étape :
+
+Il s'agit de renvoyer un tableau copié des chapitres dans le getter, et de
+copier le tableau dans un tableau privé dans le setter.
+
+7ème étape :
+
+On instancie le destructeur de Film pour qu'il supprime bien le tableau créé
+pour les chapitres.
