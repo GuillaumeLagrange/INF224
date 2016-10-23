@@ -44,7 +44,7 @@ void Film::printMedia(std::ostream &str)
 {
     str << "This file is a FILM \n"
         << "Path : " << path << '\n'
-        << "Type of file : " << mediaName << '\n'
+        << "Media name : " << mediaName << '\n'
         << "Duration : " << duration << '\n'
         << "Number of chapters : " << chapNb << '\n';
     if (chapNb != 0)

@@ -13,6 +13,7 @@ public:
     Group(std::string n);
     std::string getName();
     void printGroup(std::ostream&);
+    ~Group();
 
 private:
     std::string name;

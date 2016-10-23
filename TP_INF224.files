@@ -16,3 +16,5 @@ film.cpp
 video.h
 group.h
 group.cpp
+filemanager.h
+filemanager.cpp

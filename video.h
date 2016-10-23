@@ -22,7 +22,7 @@ class Video : public Media
         {
             str << "This file is a VIDEO \n"
                 << "Path : " << path << '\n'
-                << "Type of file : " << mediaName << '\n'
+                << "Media name : " << mediaName << '\n'
                 << "Duration : " << duration << "\n \n";
         }
 

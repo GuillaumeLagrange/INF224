@@ -1,3 +1,4 @@
+#include "filemanager.h"
 #include "media.h"
 #include "video.h"
 #include "photo.h"
@@ -58,37 +59,65 @@ int main ()
 //	delete film;
 
     /* TEST OF GROUPPS*/
-    shared_ptr<Photo> photo1 (new Photo("lena1", "media/lena"));
-    shared_ptr<Photo> photo2 (new Photo("lena2", "media/lena"));
-    shared_ptr<Photo> photo3 (new Photo("lena3", "media/lena"));
+    /* OK */
+//    shared_ptr<Photo> photo1 (new Photo("lena1", "media/lena"));
+//    shared_ptr<Photo> photo2 (new Photo("lena2", "media/lena"));
+//    shared_ptr<Photo> photo3 (new Photo("lena3", "media/lena"));
 
-    shared_ptr<Video> vid1 (new Video("avi", "media/sample1"));
+//    shared_ptr<Video> vid1 (new Video("avi", "media/sample1"));
 
-    shared_ptr<Film> film1 (new Film("avi", "~/50_shades_of_gray1", 95));
+//    shared_ptr<Film> film1 (new Film("avi", "~/50_shades_of_gray1", 95));
 
-    shared_ptr<Group> group1 (new Group ("Groupe 1"));
-    shared_ptr<Group> group2 (new Group ("Groupe 2"));
+//    shared_ptr<Group> group1 (new Group ("Groupe 1"));
+//    shared_ptr<Group> group2 (new Group ("Groupe 2"));
 
-    group1->push_back(photo1);
-    group1->push_back(vid1);
-    group1->push_back(film1);
+//    group1->push_back(photo1);
+//    group1->push_back(vid1);
+//    group1->push_back(film1);
 
-    group2->push_back(photo1);
-    group2->push_back(photo2);
-    group2->push_back(photo3);
+//    group2->push_back(photo1);
+//    group2->push_back(photo2);
+//    group2->push_back(photo3);
 
-    photo1.reset();
-    photo2.reset();
-    photo3.reset();
-    vid1.reset();
-    film1.reset();
+//    photo1.reset();
+//    photo2.reset();
+//    photo3.reset();
+//    vid1.reset();
+//    film1.reset();
 
-    group1->printGroup(cout);
-    group2->printGroup(cout);
+//    group1->printGroup(cout);
+//    group2->printGroup(cout);
 
-    group1.reset();
-    cout << "Deleted group 1 \n \n";
+//    group1.reset();
+//    cout << "Deleted group 1 \n \n";
 
-    group2->printGroup(cout);
+//    group2->printGroup(cout);
+
+    /* TEST OF FILEMANAGER */
+    /* OK */
+
+    std::shared_ptr<FileManager> fm(new FileManager());
+
+    fm->createPhoto("Photoname", "path", 0, 0);
+    fm->printMedia("Photoname", std::cout);
+    fm->printMedia("False Name", std::cout);
+
+    fm->createGroup("Groupname");
+
+    fm->addFileToGroup("Photoname", "Groupname");
+
+    fm->createVideo("Videoname", "path", 10);
+    fm->addFileToGroup("Videoname", "Groupname");
+    fm->printGroup("Groupname", std::cout);
+
+    fm->deleteMedia("Photoname");
+    fm->printGroup("Groupname", std::cout);
+
+    fm->deleteGroup("Groupname");
+    fm->printMedia("Videoname", std::cout);
+
+    fm->createGroup("PlayTest");
+    fm->createPhoto("lena", "media/lena", 0, 0);
+    fm->playMedia("lena");
 
 }

@@ -24,7 +24,7 @@ class Photo : public Media
         void printMedia(std::ostream& str) const override
         {
             str << "This file is a PHOTO \n"
-                << "Type of file : " << mediaName << '\n'
+                << "Media name : " << mediaName << '\n'
                 << "Path : " << path << '\n'
                 << "Longitude : " << longitude << '\n'
                 << "Latitude : " << latitude << "\n \n";

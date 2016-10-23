@@ -13,8 +13,13 @@ std::string Group::getName()
 void Group::printGroup(std::ostream& str)
 {
     str << "Group name : " << name << '\n';
-    for (Media * media : *this)
+    for (std::shared_ptr<Media> media : *this)
     {
         media->printMedia(str);
     }
+}
+
+Group::~Group()
+{
+    std::cout << "Group " << name << " deleted\n\n";
 }
