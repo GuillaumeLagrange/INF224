@@ -3,10 +3,11 @@
 
 #include <list>
 #include <string>
+#include <memory>
 
 #include "media.h"
 
-class Group : public std::list<Media*>
+class Group : public std::list<std::shared_ptr<Media>>
 {
 public:
     Group(std::string n);

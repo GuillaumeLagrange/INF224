@@ -6,6 +6,7 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
 using namespace std;
 
 
@@ -57,16 +58,16 @@ int main ()
 //	delete film;
 
     /* TEST OF GROUPPS*/
-    Photo * photo1 = new Photo("lena1", "media/lena");
-    Photo * photo2 = new Photo("lena2", "media/lena");
-    Photo * photo3 = new Photo("lena3", "media/lena");
+    shared_ptr<Photo> photo1 (new Photo("lena1", "media/lena"));
+    shared_ptr<Photo> photo2 (new Photo("lena2", "media/lena"));
+    shared_ptr<Photo> photo3 (new Photo("lena3", "media/lena"));
 
-    Video * vid1 = new Video("avi", "media/sample1");
+    shared_ptr<Video> vid1 (new Video("avi", "media/sample1"));
 
-    Film * film1 = new Film("avi", "~/50_shades_of_gray1", 95);
+    shared_ptr<Film> film1 (new Film("avi", "~/50_shades_of_gray1", 95));
 
-    Group * group1 = new Group ("Groupe 1");
-    Group * group2 = new Group ("Groupe 2");
+    shared_ptr<Group> group1 (new Group ("Groupe 1"));
+    shared_ptr<Group> group2 (new Group ("Groupe 2"));
 
     group1->push_back(photo1);
     group1->push_back(vid1);
@@ -76,21 +77,18 @@ int main ()
     group2->push_back(photo2);
     group2->push_back(photo3);
 
+    photo1.reset();
+    photo2.reset();
+    photo3.reset();
+    vid1.reset();
+    film1.reset();
+
     group1->printGroup(cout);
     group2->printGroup(cout);
 
-    delete group1;
+    group1.reset();
     cout << "Deleted group 1 \n \n";
 
     group2->printGroup(cout);
 
-    delete group2;
-    cout << "Deleted group 2 \n \n";
-
-    delete photo1;
-    delete photo2;
-    delete photo3;
-    delete vid1;
-    delete film1;
-    cout << "Deleted media files \n";
 }

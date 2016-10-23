@@ -40,3 +40,7 @@ void Media::printMedia(ostream& stream) const
 }
 
 //void Media::play() const {}
+Media::~Media()
+{
+    std::cout << "Media " << path << " deleted\n\n";
+}

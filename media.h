@@ -13,7 +13,7 @@ class Media
     public:
         Media();
         Media(std::string mediaName, std::string path);
-        virtual ~Media() {}
+        virtual ~Media();
 
         std::string getMediaName() const;
         void setMediaName(std::string mediaName);
