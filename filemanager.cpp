@@ -41,16 +41,18 @@ GroupPtr FileManager::createGroup(std::string name)
     return groupMap[name];
 }
 
-void FileManager::printMedia(std::string name, std::ostream& str)
+bool FileManager::printMedia(std::string name, std::ostream& str)
 {
     auto it = mediaMap.find(name);
     if (it == mediaMap.end())
     {
         str << "Media " << name << " not found" << std::endl << std::endl;
+        return false;
     } else
     {
         str << "Media " << name << " found" << std::endl << std::endl;
         it->second->printMedia(str);
+        return true;
     }
 }
 
@@ -69,16 +71,18 @@ void FileManager::deleteMedia(std::string name)
     }
 }
 
-void FileManager::printGroup(std::string name, std::ostream &str)
+bool FileManager::printGroup(std::string name, std::ostream &str)
 {
     auto it = groupMap.find(name);
     if (it == groupMap.end())
     {
         str << "Group " << name << " not found" << std::endl << std::endl;
+        return false;
     } else
     {
         str << "Group " << name << " found" << std::endl << std::endl;
         it->second->printGroup(str);
+        return true;
     }
 }
 
@@ -111,4 +115,47 @@ void FileManager::playMedia(std::string name)
     {
         it->second->play();
     }
+}
+
+bool FileManager::processRequest(TCPConnection &cnx,
+                                 const string &request, string &response)
+{
+   cerr << "\nRequest: '" << request << "'" << endl;
+
+   // Request parsing
+   std::string action, name;
+   std::stringstream str;
+   str << request;
+   str >> action;
+   str >> name;
+
+   // Locking ressources
+   TCPLock lock(cnx);
+
+   // Treating request
+   std::stringstream answer_str;
+   bool searched, played;
+   searched = false;
+   played = false;
+   if (action == "search")
+   {
+       searched = printGroup(name, answer_str);
+       if (!searched)
+       {
+           searched = printMedia(name, answer_str);
+       }
+   }
+   if (action == "play")
+   {
+       playMedia(name);
+   }
+
+   // Sending response
+  if(played || searched)
+      response = answer_str.str();
+  else
+      response = "Error : no such file";
+  cerr << "response: " << response << endl;
+
+  return true;
 }

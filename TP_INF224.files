@@ -18,3 +18,7 @@ group.h
 group.cpp
 filemanager.h
 filemanager.cpp
+tcpserver.h
+tcpserver.cpp
+cppsocket.h
+cppsocket.cpp

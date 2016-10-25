@@ -8,8 +8,13 @@
 #include <string>
 #include <iostream>
 #include <memory>
-using namespace std;
+#include <map>
+#include <sstream>
 
+using namespace std;
+using namespace cppu;
+
+const int PORT = 3331;
 
 int main ()
 {
@@ -96,28 +101,52 @@ int main ()
     /* TEST OF FILEMANAGER */
     /* OK */
 
-    std::shared_ptr<FileManager> fm(new FileManager());
+//    std::shared_ptr<FileManager> fm(new FileManager());
 
-    fm->createPhoto("Photoname", "path", 0, 0);
-    fm->printMedia("Photoname", std::cout);
-    fm->printMedia("False Name", std::cout);
+//    fm->createPhoto("Photoname", "path", 0, 0);
+//    fm->printMedia("Photoname", std::cout);
+//    fm->printMedia("False Name", std::cout);
 
-    fm->createGroup("Groupname");
+//    fm->createGroup("Groupname");
 
-    fm->addFileToGroup("Photoname", "Groupname");
+//    fm->addFileToGroup("Photoname", "Groupname");
 
-    fm->createVideo("Videoname", "path", 10);
-    fm->addFileToGroup("Videoname", "Groupname");
-    fm->printGroup("Groupname", std::cout);
+//    fm->createVideo("Videoname", "path", 10);
+//    fm->addFileToGroup("Videoname", "Groupname");
+//    fm->printGroup("Groupname", std::cout);
 
-    fm->deleteMedia("Photoname");
-    fm->printGroup("Groupname", std::cout);
+//    fm->deleteMedia("Photoname");
+//    fm->printGroup("Groupname", std::cout);
 
-    fm->deleteGroup("Groupname");
-    fm->printMedia("Videoname", std::cout);
+//    fm->deleteGroup("Groupname");
+//    fm->printMedia("Videoname", std::cout);
 
-    fm->createGroup("PlayTest");
-    fm->createPhoto("lena", "media/lena", 0, 0);
-    fm->playMedia("lena");
+//    fm->createGroup("PlayTest");
+//    fm->createPhoto("lena", "media/lena", 0, 0);
+//    fm->playMedia("lena");
 
+    /* TEST OF SERVER */
+
+    // cree le TCPServer
+    shared_ptr<TCPServer> server(new TCPServer());
+
+    // cree l'objet qui gère les données
+    shared_ptr<FileManager> base(new FileManager());
+    base->createPhoto("lena", "media/lena", 0, 0);
+
+    // le serveur appelera cette méthode chaque fois qu'il y a une requête
+    server->setCallback(*base, &FileManager::processRequest);
+
+    // lance la boucle infinie du serveur
+    cout << "Starting Server on port " << PORT << endl;
+    int status = server->run(PORT);
+
+    // en cas d'erreur
+    if (status < 0)
+    {
+        cerr << "Could not start Server on port " << PORT << endl;
+        return 1;
+    }
+
+    return 0;
 }

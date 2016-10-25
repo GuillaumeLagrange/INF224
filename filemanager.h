@@ -6,8 +6,16 @@
 #include "media.h"
 #include "photo.h"
 #include "video.h"
+#include "tcpserver.h"
 
 #include <map>
+#include <memory>
+#include <string>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+using namespace cppu;
 
 typedef std::shared_ptr<Media> MediaPtr;
 typedef std::shared_ptr<Photo> PhotoPtr;
@@ -36,13 +44,16 @@ public:
                         std::string path, int duration, int * chap, int cNb);
     GroupPtr createGroup(std::string name);
 
-    void printMedia(std::string name, std::ostream& str);
+    bool printMedia(std::string name, std::ostream& str);
     void deleteMedia(std::string name);
-    void printGroup(std::string name, std::ostream& str);
+    bool printGroup(std::string name, std::ostream& str);
     void deleteGroup(std::string name);
 
     void addFileToGroup(std::string fileName, std::string groupName);
     void playMedia(std::string name);
+
+    bool processRequest(TCPConnection& cnx,
+                        const string& request, string& response);
 
 
 private:
